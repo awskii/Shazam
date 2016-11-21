@@ -62,7 +62,13 @@ var (
 	}
 )
 
-// Create a new ICE key.
+func NewIceKey() *IceKey {
+	k := new(IceKey)
+	k.Init(1)
+	return k
+}
+
+// Initialize ICE key.
 func (k *IceKey) Init(level int) {
 	k.sMod = ice_smod
 	k.sXor = ice_sxor
