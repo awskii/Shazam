@@ -147,14 +147,6 @@ func (k *IceKey) spBoxInit() {
 	}
 }
 
-func (k *IceKey) Clear() {
-	for i := 0; i < k.rounds; i++ {
-		for j := 0; j < 3; j++ {
-			k.keySchedule[i][j] = 0
-		}
-	}
-}
-
 // The single round ICE function.
 func (k *IceKey) roundFunc(p uint64, i int, subkey [16][3]int) uint64 {
 	tl := ((p >> 16) & 0x3ff) | (((p >> 14) | (p << 18)) & 0xffc00) // Left half expansion
@@ -244,4 +236,12 @@ func (k *IceKey) DecString(str string) []byte {
 		k.decrypt(buf, &ptext, i)
 	}
 	return ptext
+}
+
+func (k *IceKey) Clear() {
+	for i := 0; i < k.rounds; i++ {
+		for j := 0; j < 3; j++ {
+			k.keySchedule[i][j] = 0
+		}
+	}
 }
